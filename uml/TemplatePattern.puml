@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+abstract class Game{
+ + void action()
+ ...
+}
+
+class SimpleGame{
+   + void action()
+}
+
+class NormalGame{
+    + double p
+    + int hpIncrease
+    + int enemyMaxNumber
+   + void action()
+}
+
+class HardGame{
+    + double p
+    + int num
+    + int hpIncrease
+    + int enemyMaxNumber
+   + void action()
+}
+Game <|-- SimpleGame
+Game <|-- NormalGame
+Game <|-- HardGame
+@enduml

@@ -1,0 +1,46 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Game{}
+class HeroAircraft {
+    - int power
+    - int direction
+    + void forward()
+    + List<AbstractBullet> shoot()
+}
+class EliteEnemy{
+    + void forward()
+    + List<AbstractBullet> shoot()
+}
+class BossEnemy{
+    - final int power
+    - final int direction
+    + void forward()
+    + List<AbstractBullet> shoot()
+}
+abstract class ShootStrategy{
+    + int shootNumHero1
+    + int shootNumHero2
+    + int shootNumEnemy
+    + int direction
+    + List<AbstractBullet> shoot(AbstractAircraft aircraft)
+}
+class ScatteredShoot{
+    + List<AbstractBullet> shoot(AbstractAircraft aircraft)
+}
+class DirectShoot{
+    + List<AbstractBullet> shoot(AbstractAircraft aircraft)
+}
+
+HeroAircraft <.. Game
+EliteEnemy <.. Game
+BossEnemy <.. Game
+
+ShootStrategy <--o HeroAircraft
+ShootStrategy <--o EliteEnemy
+ShootStrategy <--o BossEnemy
+
+ShootStrategy <|-- ScatteredShoot
+ShootStrategy <|-- DirectShoot
+
+@enduml

@@ -1,7 +1,8 @@
 package edu.hitsz.aircraft;
 
-import edu.hitsz.bullet.Bullet;
-import edu.hitsz.basic.FlyingObject;
+import edu.hitsz.ShootStrategyPackage.ShootStrategy;
+import edu.hitsz.bullet.AbstractBullet;
+import edu.hitsz.basic.AbstractFlyingObject;
 
 import java.util.List;
 
@@ -11,19 +12,45 @@ import java.util.List;
  *
  * @author hitsz
  */
-public abstract class AbstractAircraft extends FlyingObject {
+public abstract class AbstractAircraft extends AbstractFlyingObject {
+    /**
+     * 生命值
+     */
+    private boolean flag = true;
+    protected int maxHp;
     protected int hp;
+    private ShootStrategy shootStrategy;
 
-    public AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp) {
-        super(locationX, locationY, speedX, speedY);
-        this.hp = hp;
+    public boolean getFlag() {
+        return flag;
     }
 
-    public void decreaseHp(int decrease){
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
+
+    public void setShootStrategy(ShootStrategy shootstrategy) {
+        this.shootStrategy = shootstrategy;
+    }
+
+    public ShootStrategy getShootStrategy() {
+        return shootStrategy;
+    }
+
+    public AbstractAircraft(int locationX, int locationY, int speedX, int speedY, int hp, ShootStrategy shootstrategy) {
+        super(locationX, locationY, speedX, speedY);
+        this.hp = hp;
+        this.maxHp = hp;
+        this.shootStrategy = shootstrategy;
+    }
+
+    public void decreaseHp(int decrease) {
         hp -= decrease;
-        if(hp <= 0){
-            hp=0;
+        if (hp <= 0) {
+            hp = 0;
             vanish();
+        } else if (hp >= 100) {
+            hp = 100;
         }
     }
 
@@ -31,15 +58,9 @@ public abstract class AbstractAircraft extends FlyingObject {
         return hp;
     }
 
-
-    /**
-     * 飞机射击方法，可射击对象必须实现
-     * @return
-     *  可射击对象需实现，返回子弹
-     *  非可射击对象空实现，返回null
-     */
-    public abstract List<Bullet> shoot();
-
+    public List<AbstractBullet> shoot(AbstractAircraft aircraft) {
+        return this.shootStrategy.shoot(aircraft);
+    }
 }
 
 

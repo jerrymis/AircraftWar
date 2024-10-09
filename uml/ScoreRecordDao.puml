@@ -1,0 +1,29 @@
+@startuml
+'https://plantuml.com/class-diagram
+class ScoreRecord{
+    - final String playerName
+    - final int score
+    - final Date date
+    + String getPlayerName()
+    + int getScore()
+    + Date getDate()
+}
+
+interface ScoreRecordDao{
+    + List<ScoreRecord> getAllScoreRecord()
+    + void deleteAllScoreRecord()
+    + void addScoreRecord(ScoreRecord scoreRecord)
+    + void printScoreRank()
+}
+class ScoreRecordDaoImp{
+    - final String filePath
+    + List<ScoreRecord> getAllScoreRecord()
+    + void deleteAllScoreRecord()
+    + void addScoreRecord(ScoreRecord scoreRecord)
+    + void printScoreRank()
+}
+
+ScoreRecordDao <|.. ScoreRecordDaoImp
+ScoreRecord <-- ScoreRecordDaoImp
+
+@enduml

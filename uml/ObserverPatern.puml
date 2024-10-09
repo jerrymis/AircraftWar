@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+interface Item{
+    + void update(List<?> list)
+}
+
+class EnemyAircraft{
+    + void update(List<?> list)
+    }
+
+class EnemyBulletBomb{
+    + void update(List<?> list)
+}
+
+class BombImp{
+    - List<Item> itemList
+    + void addItem(Item item)
+    + void removeItem(Item item)
+    + void notifyAll(List<?> list)
+    + void bombHappen(List<?> list)
+}
+
+abstract class Game{
+}
+
+Item <|... EnemyAircraft
+Item <|... EnemyBulletBomb
+Item <..  BombImp
+BombImp  <.. Game
+@enduml

@@ -1,10 +1,7 @@
 package edu.hitsz.aircraft;
 
-import edu.hitsz.application.Game;
-import edu.hitsz.bullet.Bullet;
-
-import java.util.LinkedList;
-import java.util.List;
+import edu.hitsz.ShootStrategyPackage.ShootStrategy;
+import edu.hitsz.application.Main;
 
 /**
  * 普通敌机
@@ -13,31 +10,20 @@ import java.util.List;
  * @author hitsz
  */
 public class MobEnemy extends AbstractAircraft {
-    /**
-     * 获得敌机分数，击毁敌机时，调用该方法获得分数。
-     * @return 敌机的分数
-     */
-    public int score() {
-        return 10;
+
+    public MobEnemy(int locationX, int locationY, int speedX, int speedY, int hp, ShootStrategy shootstrategy) {
+        super(locationX, locationY, speedX, speedY, hp,shootstrategy);
     }
 
-    private static final List<Bullet> EMPTY_BULLETS = new LinkedList<>();
-
-    public MobEnemy(int locationX, int locationY, int speedX, int speedY, int hp) {
-        super(locationX, locationY, speedX, speedY, hp);
-    }
 
     @Override
     public void forward() {
         super.forward();
         // 判定 y 轴向下飞行出界
-        if (locationY >= Game.WINDOW_HEIGHT ) {
+        if (locationY >= Main.WINDOW_HEIGHT ) {
             vanish();
+            setFlag(false);
         }
     }
 
-    @Override
-    public List<Bullet> shoot() {
-        return EMPTY_BULLETS;
-    }
 }

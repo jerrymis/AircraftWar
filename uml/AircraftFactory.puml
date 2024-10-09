@@ -1,0 +1,53 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+AbstractAircraft <.. Game
+AircraftFactory <.. Game
+abstract class AbstractAircraft{
+# int maxHp
+# int hp
++ void decreaseHp(int decrease)
++ int getHp()
++ abstract List<AbstractBullet> shoot()
+}
+interface AircraftFactory{
++ abstract AbstractAircraft createAircraft(int locationX,
+int locationY, int speedX, int speedY, int hp)
+}
+class BossEnemy{
++ void forward()
++ List<AbstractBullet> shoot()
+}
+class EliteEnemy{
++ void forward()
++ List<AbstractBullet> shoot()
+}
+class MobEnemy{
++ void forward()
++ List<AbstractBullet> shoot()
+}
+AbstractAircraft <|-- BossEnemy
+AbstractAircraft <|-- EliteEnemy
+AbstractAircraft <|-- MobEnemy
+
+class BossEnemyFactory{
++ AbstractAircraft createAircraft(int locationX,
+int locationY, int speedX, int speedY, int hp)
+}
+class EliteEnemyFactory{
++ AbstractAircraft createAircraft(int locationX,
+int locationY, int speedX, int speedY, int hp)
+}
+class MobEnemyFactory{
++ AbstractAircraft createAircraft(int locationX,
+int locationY, int speedX, int speedY, int hp)
+}
+
+BossEnemy <.. BossEnemyFactory
+EliteEnemy <.. EliteEnemyFactory
+MobEnemy <.. MobEnemyFactory
+
+AircraftFactory <|.. BossEnemyFactory
+AircraftFactory <|.. EliteEnemyFactory
+AircraftFactory <|.. MobEnemyFactory
+@enduml

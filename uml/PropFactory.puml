@@ -1,0 +1,51 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+abstract class AbstractProp{
++ abstract void work(AbstractAircraft aircraft)
+}
+interface PropFactory{
++ abstract AbstractProp createProp(int locationX,
+int locationY, int speedX, int speedY)
+}
+AbstractProp <.up. Game
+PropFactory <.up. Game
+
+class BombProp{
++ void forward()
++ void work(AbstractAircraft aircraft)
+}
+class FireProp{
++ void forward()
++ void work(AbstractAircraft aircraft)
+}
+class HpProp{
++ void forward()
++ void work(AbstractAircraft aircraft)
+}
+AbstractProp <|-down- BombProp
+AbstractProp <|-down- FireProp
+AbstractProp <|-down- HpIProp
+
+class BombPropFactory{
++ abstract AbstractProp createProp(int locationX,
+int locationY, int speedX, int speedY)
+}
+class FirePropFactory{
++ abstract AbstractProp createProp(int locationX,
+int locationY, int speedX, int speedY)
+}
+class HpPropFactory{
++ abstract AbstractProp createProp(int locationX,
+int locationY, int speedX, int speedY)
+}
+PropFactory <|.down. BombPropFactory
+PropFactory <|.down. FirePropFactory
+PropFactory <|.down. HpPropFactory
+
+BombProp <.. BombPropFactory
+FireProp<.. FirePropFactory
+HpProp <.. HpPropFactory
+
+@enduml
